@@ -10,7 +10,10 @@ import src.task2.SerializableClass;
 public class DeserealizationDemo {
     public static void main(String[] args) {
 
-        SerializableClass calcResult = new SerializableClass(10, 20, 200);
+        double voltage = 15.0;
+        double[] resistances = {10.0, 20.0, 30.0, 40.0, 50.0};
+
+        SerializableClass calcResult = new SerializableClass(voltage,resistances);
         
         try {
             FileOutputStream fileOut = new FileOutputStream("calc_result.ser");
@@ -30,14 +33,11 @@ public class DeserealizationDemo {
             deserializedResult = (SerializableClass) in.readObject();
             in.close();
             fileIn.close();
+
+            System.out.println("Результати обчислення: ");
+            System.out.println(deserializedResult);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        }
-        
-        if (deserializedResult != null) {
-            System.out.println("Параметр 1: " + deserializedResult.getParameter1());
-            System.out.println("Параметр 2: " + deserializedResult.getParameter2());
-            System.out.println("Результат: " + deserializedResult.getResult());
         }
     }
 }

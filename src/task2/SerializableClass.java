@@ -2,41 +2,31 @@ package src.task2;
 import java.io.Serializable;
 
 public class SerializableClass implements Serializable {
-    private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1L;
+    private double voltage;
+    private double[] resistances;
 
-    private double parameter1;
-    private double parameter2;
-    private double result;
-
-
-    public SerializableClass(double parameter1, double parameter2, double result) {
-        this.parameter1 = parameter1;
-        this.parameter2 = parameter2;
-        this.result = result;
+    public SerializableClass(double voltage, double[] resistances) {
+        this.voltage = voltage;
+        this.resistances = resistances;
     }
 
-    public double getParameter1() {
-        return parameter1;
+    public double[] calculateCurrents() {
+        double[] currents = new double[resistances.length];
+        for(int i = 0; i < resistances.length; i++) { // Правильний оператор порівняння
+            currents[i] = voltage / resistances[i];
+        }
+        return currents;
     }
 
-    public void setParameter1(double parameter1) {
-        this.parameter1 = parameter1;
+    @Override // Переміщення методу toString() в тіло класу
+    public String toString() {
+        StringBuilder resultString = new StringBuilder();
+        double[] currents = calculateCurrents();
+        for (int i = 0; i < resistances.length; i++) {
+            resultString.append("Двійкове представлення сили струму через опір ").append(i + 1).append(": ");
+            resultString.append(Double.toString((long) currents[i])).append("\n");
+        }
+        return resultString.toString();
     }
-
-    public double getParameter2() {
-        return parameter2;
-    }
-
-    public void setParameter2(double parameter2) {
-        this.parameter2 = parameter2;
-    }
-
-    public double getResult() {
-        return result;
-    }
-
-    public void setResult(double result) {
-        this.result = result;
-    }
-
 }
