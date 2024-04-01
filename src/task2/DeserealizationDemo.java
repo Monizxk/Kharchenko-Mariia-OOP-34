@@ -18,7 +18,7 @@ public class DeserealizationDemo {
             out.writeObject(calcResult);
             out.close();
             fileOut.close();
-            System.out.println("Об'єкт серіалізовано та збережено в calc_result.ser");
+            System.out.println("РћР±'С”РєС‚ СЃРµСЂС–Р°Р»С–Р·РѕРІР°РЅРѕ С‚Р° Р·Р±РµСЂРµР¶РµРЅРѕ РІ calc_result.ser");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,9 +35,9 @@ public class DeserealizationDemo {
         }
         
         if (deserializedResult != null) {
-            System.out.println("Параметр 1: " + deserializedResult.getParameter1());
-            System.out.println("Параметр 2: " + deserializedResult.getParameter2());
-            System.out.println("Результат " + deserializedResult.getResult());
+            System.out.println("РџР°СЂР°РјРµС‚СЂ 1: " + deserializedResult.getParameter1());
+            System.out.println("РџР°СЂР°РјРµС‚СЂ 2: " + deserializedResult.getParameter2());
+            System.out.println("Р РµР·СѓР»СЊС‚Р°С‚: " + deserializedResult.getResult());
         }
     }
 }
