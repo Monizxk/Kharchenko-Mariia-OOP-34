@@ -84,8 +84,8 @@ public class Main {
      * @param args аргументи командного рядка
      */
     public static void main(String[] args) {
-        // Main main = new Main(new ViewableResult().getView());
-        //main.menu();
+        Main main = new Main(new ViewableResult().getView());
+        main.menu();
         SerializableClass serializableClass = new SerializableClass();
         serializableClass.setResistances(new double[]{100.0, 200.0, 300.0});
         serializableClass.setVoltage(78);
