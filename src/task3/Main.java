@@ -11,7 +11,7 @@ import java.util.Arrays;
  * Головний клас програми, який містить метод для взаємодії з користувачем та метод для демонстрації роботи програми.
  */
 public class Main {
-    private View view;
+    protected View view;
 
     /**
      * Конструктор, що ініціалізує об'єкт типу Main з переданим об'єктом View.
@@ -20,6 +20,9 @@ public class Main {
      */
     public Main(View view) {
         this.view = view;
+    }
+
+    public Main() {
     }
 
     /**

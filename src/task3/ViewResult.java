@@ -1,13 +1,15 @@
 package src.task3;
 
 import src.task2.SerializableClass;
+import src.task4.ViewableTable;
+
 import java.io.*;
 import java.util.ArrayList;
 
 /**
  * Клас, який реалізує інтерфейс View та надає функціональність для роботи з результатами.
  */
-public class ViewResult implements View {
+public class ViewResult extends ViewableTable implements View {
     private static final String FNAME = "items.bin";
     private static final int DEFAULT_NUM = 10;
     private ArrayList<SerializableClass> items = new ArrayList<SerializableClass>();
