@@ -52,7 +52,7 @@
 
 [ViewResult.java](src/task3/ViewResult.java)
 
-- Результати: 🦆
+- Результати: 
 
 ![](images/task3.png)
 ![](images/task3_1.png)
