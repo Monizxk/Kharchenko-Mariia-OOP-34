@@ -29,6 +29,12 @@
 
 [MainTest.java](Test/MainTest.java)
 
+4. Виконати індивідуальне завдання згідно номеру в списку.
+
+   Визначити двійкове подання цілісного значення постійного струму, що
+   протікає через кожен із чотирьох паралельно підключених опорів та заданій
+   напрузі.
+
 - Результати:
 
 ![](images/task2.png)
@@ -84,3 +90,47 @@
 ![](images/task4_1.png)
 ![](images/task_3.png)
 ![](images/test.png)
+
+
+### Завдання 5 (4.04.24)
+1. Реалізувати можливість скасування (undo) операцій (команд).
+2. Продемонструвати поняття "макрокоманда"
+3. При розробці програми використовувати шаблон Singletone.
+4. Забезпечити діалоговий інтерфейс із користувачем.
+5. Розробити клас для тестування функціональності програми.
+
+[Application](src/task5/Application.java)
+
+[ChangeConsoleCommand](src/task5/ChangeConsoleCommand.java)
+
+[ChangeItemCommand](src/task5/ChangeItemCommand.java)
+
+[Command](src/task5/Command.java)
+
+[ConsoleCommand](src/task5/ConsoleCommand.java)
+
+[GenerateConsoleCommand](src/task5/GenerateConsoleCommand.java)
+
+[Main](src/task5/Main.java)
+
+[Menu](src/task5/Menu.java)
+
+[RestoreConsoleCommand](src/task5/RestoreConsoleCommand.java)
+
+[SaveConsoleCommand](src/task5/SaveConsoleCommand.java)
+
+[UndoConsoleCommand](src/task5/UndoConsoleCommand.java)
+
+[UndoReserve](src/task5/UndoReserve.java)
+
+[ViewConsoleCommand](src/task5/ViewConsoleCommand.java)
+
+- Результати:
+
+![](images/task5_1.png)
+![](images/task5_2.png)
+![](images/task5_3.png)
+![](images/task5_4.png)
+![](images/task5_5.png)
+![](images/test.1.png)
+

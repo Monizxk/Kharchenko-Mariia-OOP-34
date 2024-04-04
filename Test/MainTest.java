@@ -1,10 +1,11 @@
 package Test;
 
 import src.task2.SerializableClass;
+import src.task5.Application;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Клас для тестування головного класу програми Main.
@@ -42,5 +43,30 @@ public class MainTest {
         SerializableClass deserializedClass = SerializableClass.deserialize();
 
         assertArrayEquals(serializableClass.getCurrents(), deserializedClass.getCurrents(), 0.01);
+    }
+
+    /**
+     * Метод для тестування скасування останньої команди.
+     */
+    @org.junit.Test
+    public void testUndo() {
+        PrintStream originalOut = System.out;
+        InputStream originalIn = System.in;
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("u\nq".getBytes());
+        System.setOut(new PrintStream(outputStream));
+        System.setIn(inputStream);
+
+        Application app = Application.getInstance();
+        app.run();
+
+        String output = outputStream.toString();
+
+        assert output.contains("Undo last command.");
+        assert output.contains("Exit.");
+
+        System.setOut(originalOut);
+        System.setIn(originalIn);
     }
 }
