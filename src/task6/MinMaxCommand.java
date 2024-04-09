@@ -77,4 +77,5 @@ public class MinMaxCommand implements Command {
         }
         progress = 100;
     }
+
 }
