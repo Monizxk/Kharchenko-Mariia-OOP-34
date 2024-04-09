@@ -39,13 +39,6 @@ public class UndoConsoleCommand implements ConsoleCommand {
      * Викликає метод скасування останньої дії, відновлює дані та відображає їх.
      */
     public void execute() {
-        UndoReserve un = new UndoReserve(view);
-        System.out.println("Undo last command.");
-        try {
-            view.viewRestore();
-        } catch (Exception e) {
-            System.err.println("Serialization error: " + e);
-        }
-        view.viewShow();
+        view.undo();
     }
 }

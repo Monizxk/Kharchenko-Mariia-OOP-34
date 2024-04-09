@@ -1,6 +1,9 @@
 package src.task3;
 
+import src.task2.SerializableClass;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Інтерфейс, що визначає методи для взаємодії з відображенням.
@@ -31,6 +34,11 @@ public interface View {
      * Метод для ініціалізації відображення.
      */
     public void viewInit();
+
+    /**
+     * Метод для відмінення останнюьої команди
+     */
+    public void undo();
 
     /**
      * Метод для збереження стану відображення.

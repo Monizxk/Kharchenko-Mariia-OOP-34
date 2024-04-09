@@ -4,7 +4,9 @@ import src.task2.SerializableClass;
 import src.task4.ViewableTable;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Клас, який реалізує інтерфейс View та надає функціональність для роботи з результатами.
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 public class ViewResult extends ViewableTable implements View {
     private static final String FNAME = "items.bin";
     private static final int DEFAULT_NUM = 10;
-    private ArrayList<SerializableClass> items = new ArrayList<SerializableClass>();
+    private final Stack<ArrayList<SerializableClass>> items = new Stack<>();
 
     /**
      * Конструктор, який ініціалізує список items зі значеннями SerializableClass за замовчуванням.
@@ -26,8 +28,23 @@ public class ViewResult extends ViewableTable implements View {
          */
     }
     public ViewResult(int n) {
+        ArrayList<SerializableClass> list = new ArrayList<>();
+
         for(int ctr = 0; ctr < n; ctr++) {
-            items.add(new SerializableClass());
+            list.add(new SerializableClass());
+        }
+
+        items.push(list);
+    }
+
+    /**
+     * Відміняє останню команду
+     */
+    public void undo() {
+        if (items.size() != 1) {
+            items.pop();
+        } else {
+            System.out.println("Немає змін");
         }
     }
 
@@ -36,7 +53,7 @@ public class ViewResult extends ViewableTable implements View {
      * @return список елементів
      */
     public ArrayList<SerializableClass> getItems() {
-        return items;
+        return items.peek();
     }
 
     /**
@@ -53,11 +70,15 @@ public class ViewResult extends ViewableTable implements View {
          */
     }
     public void init(double stepX) {
+        ArrayList<SerializableClass> list = new ArrayList<>();
         double voltage = 0.0;
-        for(SerializableClass item : items) {
-            item.setVoltage(voltage);
+
+        for (int i = 0; i < getItems().size(); i++) {
+            list.add(new SerializableClass(voltage, new double[]{100, 200, 300}));
             voltage += stepX;
         }
+
+        items.push(list);
     }
 
     /**
@@ -73,7 +94,7 @@ public class ViewResult extends ViewableTable implements View {
      */
     public void viewSave() throws IOException {
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(FNAME));
-        os.writeObject(items);
+        os.writeObject(items.peek());
         os.flush();
         os.close();
     }
@@ -84,7 +105,7 @@ public class ViewResult extends ViewableTable implements View {
      */
     public void viewRestore() throws Exception {
         ObjectInputStream is = new ObjectInputStream(new FileInputStream(FNAME));
-        items = (ArrayList<SerializableClass>) is.readObject();
+        items.push((ArrayList<SerializableClass>) is.readObject());
         is.close();
     }
 
@@ -99,7 +120,7 @@ public class ViewResult extends ViewableTable implements View {
      * Метод для відображення тіла результатів.
      */
     public void viewBody() {
-        for(SerializableClass item : items) {
+        for(SerializableClass item : getItems()) {
             System.out.printf(item.toString());
         }
         System.out.println();

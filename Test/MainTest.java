@@ -1,7 +1,14 @@
 package Test;
 
 import src.task2.SerializableClass;
+import src.task3.View;
+import src.task3.ViewResult;
+import src.task4.ViewableTable;
 import src.task5.Application;
+import src.task6.ExecuteConsoleCommand;
+import src.task6.MinMaxCommand;
+import org.junit.After;
+import org.junit.Before;
 
 import static org.junit.Assert.*;
 
@@ -63,10 +70,40 @@ public class MainTest {
 
         String output = outputStream.toString();
 
-        assert output.contains("Undo last command.");
-        assert output.contains("Exit.");
+        assertTrue(output.contains("Undo last command."));
+        assertTrue(output.contains("Exit."));
 
         System.setOut(originalOut);
         System.setIn(originalIn);
+    }
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
+
+    /**
+     * Метод для тестування WorkThread
+     */
+    @org.junit.Test
+    public void testExecute() {
+        View view = new ViewableTable().getView();
+        ExecuteConsoleCommand executeConsoleCommand = new ExecuteConsoleCommand(view);
+
+        executeConsoleCommand.execute();
+
+        String output = outContent.toString().trim();
+
+        assert output.contains("Average done. Result = 342.38");
+        assert output.contains("MinMax done. Min positive #0 found: 100.00.");
+        assert output.contains("Max negative item not found.");
     }
 }
