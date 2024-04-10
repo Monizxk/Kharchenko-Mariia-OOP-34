@@ -1,3 +1,6 @@
+/**
+ * Цей клас призначений для тестування головного класу програми Main.
+ */
 package Test;
 
 import src.task2.SerializableClass;
@@ -13,10 +16,10 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-/**
- * Клас для тестування головного класу програми Main.
- */
 public class MainTest {
     /**
      * Метод для тестування обчислення поточних значень.
@@ -34,9 +37,11 @@ public class MainTest {
         assertArrayEquals(new double[]{0.78, 0.39, 0.26}, serializableClass.calculateCurrents(), 0.01);
 
     }
+
     /**
      * Метод для тестування серіалізації та десеріалізації об'єктів класу SerializableClass.
-     * @throws IOException у випадку помилки вводу/виводу під час серіалізації/десеріалізації
+     *
+     * @throws IOException            у випадку помилки вводу/виводу під час серіалізації/десеріалізації
      * @throws ClassNotFoundException якщо клас не може бути знайдений при десеріалізації
      */
     @org.junit.Test
@@ -57,24 +62,14 @@ public class MainTest {
      */
     @org.junit.Test
     public void testUndo() {
-        PrintStream originalOut = System.out;
-        InputStream originalIn = System.in;
+        View view = new ViewableTable().getView();
+        view.viewInit();
+        ArrayList<SerializableClass> TestUndo = new ArrayList<>(view.getItems());
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("u\nq".getBytes());
-        System.setOut(new PrintStream(outputStream));
-        System.setIn(inputStream);
+        view.viewInit();
+        view.undo();
 
-        Application app = Application.getInstance();
-        app.run();
-
-        String output = outputStream.toString();
-
-        assertTrue(output.contains("Undo last command."));
-        assertTrue(output.contains("Exit."));
-
-        System.setOut(originalOut);
-        System.setIn(originalIn);
+        assert TestUndo.containsAll(view.getItems());
     }
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -91,19 +86,25 @@ public class MainTest {
     }
 
     /**
-     * Метод для тестування WorkThread
+     * Метод для тестування WorkerThread
      */
     @org.junit.Test
     public void testExecute() {
         View view = new ViewableTable().getView();
+
+        view.viewInit();
+
         ExecuteConsoleCommand executeConsoleCommand = new ExecuteConsoleCommand(view);
+
+        ArrayList<SerializableClass> initialItems = new ArrayList<>(view.getItems());
 
         executeConsoleCommand.execute();
 
         String output = outContent.toString().trim();
+        assertTrue(output.contains("Average done."));
+        assertTrue(output.contains("MinMax done."));
+        assertTrue(output.contains("Max negative item not found."));
 
-        assert output.contains("Average done. Result = 342.38");
-        assert output.contains("MinMax done. Min positive #0 found: 100.00.");
-        assert output.contains("Max negative item not found.");
+        assertTrue(initialItems.containsAll(view.getItems()));
     }
 }

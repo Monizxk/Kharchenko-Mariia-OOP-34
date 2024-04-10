@@ -6,37 +6,62 @@ import src.task5.Command;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Команда для пошуку мінімального та максимального значень в наборі даних.
+ */
 public class MinMaxCommand implements Command {
+
+    /** Індекс мінімального значення в наборі даних. */
     private int resultMin = -1;
+
+    /** Індекс максимального значення в наборі даних. */
     private int resultMax = -1;
+
+    /** Прогрес виконання команди. */
     private int progress = 0;
 
+    /** Об'єкт, який містить результати. */
     private ViewResult viewResult;
 
-    public ViewResult getViewResult() {
-        return viewResult;
-    }
-
-    public ViewResult setViewResult(ViewResult viewResult) {
-        return this.viewResult = viewResult;
-    }
-
+    /**
+     * Конструктор команди MinMax.
+     *
+     * @param viewResult об'єкт з результатами
+     */
     public MinMaxCommand(ViewResult viewResult) {
         this.viewResult = viewResult;
     }
 
+    /**
+     * Отримує індекс мінімального значення.
+     *
+     * @return індекс мінімального значення
+     */
     public int getResultMin() {
         return resultMin;
     }
 
+    /**
+     * Отримує індекс максимального значення.
+     *
+     * @return індекс максимального значення
+     */
     public int getResultMax() {
         return resultMax;
     }
 
+    /**
+     * Перевіряє, чи виконується команда.
+     *
+     * @return true, якщо команда ще виконується, інакше - false
+     */
     public boolean running() {
         return progress < 100;
     }
 
+    /**
+     * Виконує команду пошуку мінімального та максимального значень.
+     */
     public void execute() {
         progress = 0;
         System.out.println("MinMax executed...");
@@ -77,5 +102,4 @@ public class MinMaxCommand implements Command {
         }
         progress = 100;
     }
-
 }

@@ -1,6 +1,5 @@
 package src.task6;
 
-import src.task2.SerializableClass;
 import src.task3.View;
 import src.task3.ViewResult;
 import src.task5.Command;
@@ -8,36 +7,49 @@ import src.task5.ConsoleCommand;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Клас, що реалізує консольну команду для виконання обчислень.
+ */
 public class ExecuteConsoleCommand implements ConsoleCommand {
     private View view;
 
-    public View getView() {
-        return view;
-    }
-
-    public View setView(View view) {
-        return this.view = view;
-    }
-
+    /**
+     * Конструктор класу ExecuteConsoleCommand.
+     *
+     * @param view об'єкт, який надає доступ до даних для обчислень
+     */
     public ExecuteConsoleCommand(View view) {
         this.view = view;
     }
 
+    /**
+     * Отримує ключ команди.
+     *
+     * @return ключ команди
+     */
     public char getKey() {
         return 'e';
     }
 
+    /**
+     * Повертає рядок, який представляє команду.
+     *
+     * @return рядок з представленням команди
+     */
     public String toString() {
         return "'e'xecute";
     }
 
+    /**
+     * Виконує команду обчислень.
+     */
     public void execute() {
         CommandQueue queue1 = new CommandQueue();
         CommandQueue queue2 = new CommandQueue();
 
-        MinMaxCommand minMaxCommand = new MinMaxCommand((ViewResult)view);
-        MaxCommand maxCommand = new MaxCommand((ViewResult)view);
-        AvgCommand avgCommand = new AvgCommand((ViewResult)view);
+        MinMaxCommand minMaxCommand = new MinMaxCommand((ViewResult) view);
+        MaxCommand maxCommand = new MaxCommand((ViewResult) view);
+        AvgCommand avgCommand = new AvgCommand((ViewResult) view);
         System.out.println("Execute all threads...");
 
         queue1.put(minMaxCommand);

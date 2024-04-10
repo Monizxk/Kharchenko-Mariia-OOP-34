@@ -2,54 +2,67 @@ package src.task6;
 
 import src.task5.Command;
 
-import java.util.Vector;
+import java.util.LinkedList;
+import java.util.Queue;
 
+/**
+ * Клас, який представляє чергу команд для виконання.
+ */
 public class CommandQueue {
-    private Vector<Command> tasks;
-
-    private boolean waiting;
-
+    private Queue<Command> tasks;
     private boolean shutdown;
 
-    public void shutdown() {
-        shutdown = true;
-    }
-
+    /**
+     * Конструктор для ініціалізації черги команд.
+     */
     public CommandQueue() {
-        tasks = new Vector<Command>();
-        waiting = false;
+        tasks = new LinkedList<>();
+        shutdown = false;
         new Thread(new Worker()).start();
     }
 
-    public void put(Command r) {
-        tasks.add(r);
-        if (waiting) {
-            synchronized (this) {
-                notifyAll();
-            }
-        }
+    /**
+     * Додає команду до черги.
+     * @param command команда, яку потрібно додати
+     */
+    public synchronized void put(Command command) {
+        tasks.add(command);
+        notify(); // Повідомляємо про нову команду
     }
 
-    public Command take() {
-        if (tasks.isEmpty()) {
-            synchronized (this) {
-                waiting = true;
-                try {
-                    wait();
-                } catch (InterruptedException ie) {
-                    waiting = false;
-                }
-            }
+    /**
+     * Бере та видаляє першу команду з черги.
+     * @return перша команда в черзі
+     * @throws InterruptedException якщо потік був перерваний
+     */
+    public synchronized Command take() throws InterruptedException {
+        while (tasks.isEmpty()) {
+            wait(); // Чекаємо, поки не буде доступна нова команда
         }
-        return (Command)tasks.remove(0);
+        return tasks.poll();
     }
 
+    /**
+     * Зупиняє роботу черги команд.
+     */
+    public synchronized void shutdown() {
+        shutdown = true;
+        notifyAll(); // Повідомляємо всі потоки про закриття
+    }
+
+    /**
+     * Клас-внутрішній робітник, який виконує команди з черги.
+     */
     private class Worker implements Runnable {
-
+        @Override
         public void run() {
             while (!shutdown) {
-                Command r = take();
-                r.execute();
+                try {
+                    Command command = take(); // Беремо команду з черги
+                    command.execute(); // Виконуємо команду
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

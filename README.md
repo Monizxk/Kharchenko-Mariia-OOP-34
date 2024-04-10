@@ -134,3 +134,26 @@
 ![](images/task5_5.png)
 ![](images/test.1.png)
 
+
+### Завдання 6 (05.04.2024)
+
+1. Продемонструвати можливість паралельної обробки елементів колекції (пошук мінімуму, максимуму, обчислення середнього значення, відбір за критерієм, статистична обробка тощо).
+2. Управління чергою завдань (команд) реалізувати за допомогою шаблону Worker Thread.
+
+[AvgCommand](src/task6/AvgCommand.java)
+
+[CommandQueue](src/task6/CommandQueue.java)
+
+[ExecuteConsoleCommand](src/task6/ExecuteConsoleCommand.java)
+
+[Main](src/task6/Main.java)
+
+[MaxCommand](src/task6/MaxCommand.java)
+
+[MinMaxCommand](src/task6/MinMaxCommand.java)
+
+- Результати:
+
+![](images/task6.png)
+![](images/task6_1.png)
+![](images/task6_2.png)

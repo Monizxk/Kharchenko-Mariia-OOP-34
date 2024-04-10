@@ -4,7 +4,6 @@ import src.task2.SerializableClass;
 import src.task4.ViewableTable;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -12,8 +11,14 @@ import java.util.Stack;
  * Клас, який реалізує інтерфейс View та надає функціональність для роботи з результатами.
  */
 public class ViewResult extends ViewableTable implements View {
+
+    /** Ім'я файлу для збереження/відновлення результатів. */
     private static final String FNAME = "items.bin";
+
+    /** Значення за замовчуванням для кількості об'єктів SerializableClass. */
     private static final int DEFAULT_NUM = 10;
+
+    /** Стек, що містить елементи для кожного стану результатів. */
     private final Stack<ArrayList<SerializableClass>> items = new Stack<>();
 
     /**
@@ -21,16 +26,17 @@ public class ViewResult extends ViewableTable implements View {
      */
     public ViewResult() {
         this(DEFAULT_NUM);
-
-        /**
-         * Конструктор, який ініціалізує список items з вказаною кількістю об'єктів SerializableClass.
-         * @param n кількість об'єктів SerializableClass для створення
-         */
     }
+
+    /**
+     * Конструктор, який ініціалізує список items з вказаною кількістю об'єктів SerializableClass.
+     *
+     * @param n кількість об'єктів SerializableClass для створення
+     */
     public ViewResult(int n) {
         ArrayList<SerializableClass> list = new ArrayList<>();
 
-        for(int ctr = 0; ctr < n; ctr++) {
+        for (int ctr = 0; ctr < n; ctr++) {
             list.add(new SerializableClass());
         }
 
@@ -38,7 +44,7 @@ public class ViewResult extends ViewableTable implements View {
     }
 
     /**
-     * Відміняє останню команду
+     * Відміняє останню команду.
      */
     public void undo() {
         if (items.size() != 1) {
@@ -50,6 +56,7 @@ public class ViewResult extends ViewableTable implements View {
 
     /**
      * Метод для отримання списку елементів.
+     *
      * @return список елементів
      */
     public ArrayList<SerializableClass> getItems() {
@@ -57,18 +64,10 @@ public class ViewResult extends ViewableTable implements View {
     }
 
     /**
-     * Метод для обчислення значень згідно з деякою функцією.
-     * @param x значення аргументу для обчислення
-     * @return обчислене значення
+     * Метод для ініціалізації значень напруги в елементах списку items з певним кроком.
+     *
+     * @param stepX крок для ініціалізації напруги
      */
-    private double calc(double x) {
-        return Math.sin(x * Math.PI / 180);
-
-        /**
-         * Метод для ініціалізації значень напруги в елементах списку items з певним кроком.
-         * @param stepX крок для ініціалізації напруги
-         */
-    }
     public void init(double stepX) {
         ArrayList<SerializableClass> list = new ArrayList<>();
         double voltage = 0.0;
@@ -90,6 +89,7 @@ public class ViewResult extends ViewableTable implements View {
 
     /**
      * Метод для збереження списку items у файл.
+     *
      * @throws IOException у випадку помилки вводу/виводу під час збереження
      */
     public void viewSave() throws IOException {
@@ -101,6 +101,7 @@ public class ViewResult extends ViewableTable implements View {
 
     /**
      * Метод для відновлення списку items з файлу.
+     *
      * @throws Exception у випадку помилки під час відновлення
      */
     public void viewRestore() throws Exception {
@@ -120,7 +121,7 @@ public class ViewResult extends ViewableTable implements View {
      * Метод для відображення тіла результатів.
      */
     public void viewBody() {
-        for(SerializableClass item : getItems()) {
+        for (SerializableClass item : getItems()) {
             System.out.printf(item.toString());
         }
         System.out.println();

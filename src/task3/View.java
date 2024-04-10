@@ -41,6 +41,11 @@ public interface View {
     public void undo();
 
     /**
+     * Метод для отримання списку елементів.
+     * @return список елементів
+     */
+    public ArrayList<SerializableClass> getItems();
+    /**
      * Метод для збереження стану відображення.
      * @throws IOException у випадку помилки вводу/виводу під час збереження
      */
