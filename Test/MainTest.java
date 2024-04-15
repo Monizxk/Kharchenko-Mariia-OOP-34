@@ -5,20 +5,14 @@ package Test;
 
 import src.task2.SerializableClass;
 import src.task3.View;
-import src.task3.ViewResult;
 import src.task4.ViewableTable;
-import src.task5.Application;
 import src.task6.ExecuteConsoleCommand;
-import src.task6.MinMaxCommand;
 import org.junit.After;
 import org.junit.Before;
-
 import static org.junit.Assert.*;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class MainTest {
     /**

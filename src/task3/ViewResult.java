@@ -73,7 +73,10 @@ public class ViewResult extends ViewableTable implements View {
         double voltage = 0.0;
 
         for (int i = 0; i < getItems().size(); i++) {
-            list.add(new SerializableClass(voltage, new double[]{100, 200, 300}));
+            SerializableClass results = new SerializableClass(voltage, new double[]{100, 200, 300});
+            results.calculateCurrents();
+
+            list.add(results);
             voltage += stepX;
         }
 

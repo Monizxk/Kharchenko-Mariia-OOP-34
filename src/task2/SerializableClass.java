@@ -10,7 +10,7 @@ public class SerializableClass implements Serializable {
     private double voltage; // Напруга
     private double[] resistances; // Масив опорів
 
-    double[] currents;
+    double[] currents = {0, 0, 0};
 
 
     /**
