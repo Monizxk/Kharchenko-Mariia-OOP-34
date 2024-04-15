@@ -132,7 +132,7 @@
 ![](images/task5_3.png)
 ![](images/task5_4.png)
 ![](images/task5_5.png)
-![](images/test.1.png)
+![](images/test.1.png) 
 
 
 ### Завдання 6 (05.04.2024)
